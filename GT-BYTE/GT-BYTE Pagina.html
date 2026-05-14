@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT-BYTE — Tecnología con Alma Chapina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-green: #00ff88;
+    --neon-cyan: #00eaff;
+    --neon-blue: #0080ff;
+    --dark-bg: #080c10;
+    --dark-surface: #0d1117;
+    --dark-card: #111820;
+    --dark-border: #1a2840;
+    --text-primary: #e8f4f8;
+    --text-muted: #6a8fa8;
+    --accent: #00ff88;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,12,16,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,255,136,0.15);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: var(--neon-green);
+    text-shadow: 0 0 20px rgba(0,255,136,0.6);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--text-primary);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--neon-cyan);
+  }
+
+  .nav-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--neon-green);
+    border: 1px solid rgba(0,255,136,0.4);
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--dark-bg));
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--neon-green);
+    border: 1px solid rgba(0,255,136,0.3);
+    padding: 6px 16px;
+    margin-bottom: 2rem;
+    display: inline-block;
+    text-transform: uppercase;
+    animation: pulse-border 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(0,255,136,0.3); }
+    50% { border-color: rgba(0,255,136,0.7); }
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title .gt {
+    color: var(--neon-green);
+    text-shadow: 0 0 30px rgba(0,255,136,0.5), 0 0 60px rgba(0,255,136,0.2);
+  }
+
+  .hero-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--neon-cyan);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: var(--neon-green);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-outline {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--neon-cyan);
+    border: 1px solid rgba(0,234,255,0.4);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(0,234,255,0.07);
+    border-color: var(--neon-cyan);
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    position: relative;
+    z-index: 1;
+    background: rgba(0,255,136,0.06);
+    border-top: 1px solid rgba(0,255,136,0.2);
+    border-bottom: 1px solid rgba(0,255,136,0.2);
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-inner span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--neon-green);
+    padding: 0 3rem;
+  }
+
+  .ticker-inner span::before {
+    content: '//';
+    margin-right: 0.8rem;
+    opacity: 0.5;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--neon-green);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  /* FLASH TECH GRID */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.08);
+  }
+
+  .news-card {
+    background: var(--dark-card);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .news-card:hover {
+    background: #141f2e;
+  }
+
+  .news-card:hover .card-title {
+    color: var(--neon-cyan);
+  }
+
+  .card-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .tag-flash { color: var(--neon-green); border: 1px solid rgba(0,255,136,0.3); }
+  .tag-ia { color: #b388ff; border: 1px solid rgba(179,136,255,0.3); }
+  .tag-hardware { color: var(--neon-cyan); border: 1px solid rgba(0,234,255,0.3); }
+  .tag-gaming { color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+  .tag-software { color: #ffb347; border: 1px solid rgba(255,179,71,0.3); }
+
+  .card-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .card-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* FEATURED */
+  .featured-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(0,255,136,0.15);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--neon-green), var(--neon-cyan));
+  }
+
+  .featured-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--neon-green);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .featured-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .featured-excerpt {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* CATEGORIAS */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: rgba(0,255,136,0.06);
+    border: 1px solid rgba(0,255,136,0.06);
+    margin-bottom: 5rem;
+  }
+
+  .cat-item {
+    background: var(--dark-card);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .cat-item:hover { background: #141f2e; }
+
+  .cat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cat-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .cat-item:hover .cat-name { color: var(--neon-green); }
+
+  /* STATS */
+  .stats-bar {
+    background: rgba(8,12,16,0.95);
+    border: 1px solid rgba(0,255,136,0.12);
+    padding: 2.5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    text-align: center;
+    margin: 4rem 0;
+  }
+
+  .stat-val {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--neon-green);
+    text-shadow: 0 0 20px rgba(0,255,136,0.4);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--dark-surface);
+    border-top: 1px solid rgba(0,255,136,0.12);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: var(--neon-green);
+    text-shadow: 0 0 20px rgba(0,255,136,0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-slogan {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--neon-cyan); }
+
+  .social-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .social-chip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--neon-green);
+    border: 1px solid rgba(0,255,136,0.25);
+    padding: 5px 14px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .social-chip:hover {
+    background: rgba(0,255,136,0.08);
+    border-color: rgba(0,255,136,0.5);
+  }
+
+  .footer-copy {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(106,143,168,0.5);
+    text-transform: uppercase;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,255,136,0.25), transparent);
+    margin: 0;
+  }
+
+  /* LOGO PLACEHOLDERS */
+  .logo-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px dashed rgba(0,255,136,0.4);
+    background: rgba(0,255,136,0.04);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-slot:hover {
+    background: rgba(0,255,136,0.08);
+    border-color: rgba(0,255,136,0.7);
+  }
+
+  .logo-slot input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo-slot-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .logo-slot-icon {
+    font-size: 1.4rem;
+    opacity: 0.5;
+  }
+
+  .logo-slot-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(0,255,136,0.6);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .logo-slot-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: rgba(106,143,168,0.5);
+    text-transform: uppercase;
+  }
+
+  /* Nav logo slot */
+  .logo-slot-nav {
+    width: 120px;
+    height: 40px;
+  }
+
+  /* Hero logo slot */
+  .logo-slot-hero {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 1.5rem;
+  }
+
+  /* Footer logo slot */
+  .logo-slot-footer {
+    width: 140px;
+    height: 80px;
+    margin: 0 auto 1rem;
+  }
+
+  /* Preview image inside slot */
+  .logo-slot img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .stats-bar { padding: 1.5rem; }
+    section { padding: 3rem 1rem; }
+    .featured-card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <img src="Logo1.png" alt="Logo GT-BYTE" style="max-height:40px; display:block;">
+    <a href="#" class="nav-logo"><span>GT</span>-BYTE</a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Flash Tech</a></li>
+    <li><a href="#">Análisis</a></li>
+    <li><a href="#">Innovación</a></li>
+    <li><a href="#">Reviews</a></li>
+    <li><a href="#">Cultura Tech</a></li>
+    <li><a href="#">Comunidad</a></li>
+  </ul>
+  <span class="nav-badge">GT // 2026</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+
+  <img src="Logo3.png" alt="Logo GT-BYTE principal" style="max-height:180px; max-width:180px; object-fit:contain; display:block; margin:0 auto 1.5rem;">
+
+  <div class="hero-tag">// Medio tecnológico guatemalteco</div>
+  <h1 class="hero-title"><span class="gt">GT</span>-BYTE</h1>
+  <p class="hero-subtitle">Tecnología con alma chapina</p>
+  <p class="hero-desc">
+    Información tecnológica rápida, confiable y moderna. Flash Tech para lo más nuevo, análisis profundos para lo más importante.
+  </p>
+  <div class="hero-actions">
+    <a href="#noticias" class="btn-primary">Leer Flash Tech</a>
+    <a href="#categorias" class="btn-outline">Explorar temas</a>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-label="Noticias en vivo">
+  <div class="ticker-inner">
+    <span>OpenAI lanza GPT-5 con capacidades multimodales avanzadas</span>
+    <span>NVIDIA anuncia nueva GPU RTX 5090 para gamers</span>
+    <span>Meta integra IA en WhatsApp Business</span>
+    <span>Apple presenta MacBook Pro con chip M5 Ultra</span>
+    <span>Google DeepMind alcanza nuevo hito en proteínas</span>
+    <span>AMD Ryzen 9000 domina benchmarks de procesamiento</span>
+    <span>Samsung anuncia pantallas OLED de 8K para 2026</span>
+    <span>OpenAI lanza GPT-5 con capacidades multimodales avanzadas</span>
+    <span>NVIDIA anuncia nueva GPU RTX 5090 para gamers</span>
+    <span>Meta integra IA en WhatsApp Business</span>
+    <span>Apple presenta MacBook Pro con chip M5 Ultra</span>
+    <span>Google DeepMind alcanza nuevo hito en proteínas</span>
+    <span>AMD Ryzen 9000 domina benchmarks de procesamiento</span>
+    <span>Samsung anuncia pantallas OLED de 8K para 2026</span>
+  </div>
+</div>
+
+<!-- FLASH TECH -->
+<section id="noticias">
+  <p class="section-label">// Últimas noticias</p>
+  <h2 class="section-title">Flash Tech</h2>
+  <p class="section-desc">Lo más nuevo en tecnología. Rápido, verificado y al grano.</p>
+
+  <div class="news-grid">
+    <a href="#" class="news-card">
+      <span class="card-tag tag-ia">IA</span>
+      <p class="card-title">GPT-5 ya está disponible: qué cambia con la nueva versión de OpenAI</p>
+      <p class="card-meta">HACE 2 HORAS // IA</p>
+    </a>
+    <a href="#" class="news-card">
+      <span class="card-tag tag-hardware">Hardware</span>
+      <p class="card-title">RTX 5090: NVIDIA confirma fecha de lanzamiento y precios oficiales</p>
+      <p class="card-meta">HACE 4 HORAS // HARDWARE</p>
+    </a>
+    <a href="#" class="news-card">
+      <span class="card-tag tag-gaming">Gaming</span>
+      <p class="card-title">GTA VI retrasa su lanzamiento: Rockstar explica los motivos</p>
+      <p class="card-meta">HACE 5 HORAS // GAMING</p>
+    </a>
+    <a href="#" class="news-card">
+      <span class="card-tag tag-software">Software</span>
+      <p class="card-title">Android 16 trae nueva interfaz y mejoras de privacidad para todos</p>
+      <p class="card-meta">HACE 6 HORAS // SOFTWARE</p>
+    </a>
+    <a href="#" class="news-card">
+      <span class="card-tag tag-ia">IA</span>
+      <p class="card-title">Claude 4 de Anthropic: análisis completo de sus capacidades</p>
+      <p class="card-meta">HACE 8 HORAS // IA</p>
+    </a>
+    <a href="#" class="news-card">
+      <span class="card-tag tag-hardware">Hardware</span>
+      <p class="card-title">Apple M5 Ultra: benchmarks reales revelan rendimiento brutal</p>
+      <p class="card-meta">AYER // HARDWARE</p>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURED -->
+<section>
+  <p class="section-label">// Análisis destacado</p>
+  <h2 class="section-title">En profundidad</h2>
+  <p class="section-desc">Más que noticias. Contexto real para decisiones tecnológicas.</p>
+
+  <div class="featured-card">
+    <p class="featured-label">// Análisis Especial · IA · 12 mayo 2026</p>
+    <h3 class="featured-title">El año que la IA dejó de ser experimental:<br>balance del primer semestre 2026</h3>
+    <p class="featured-excerpt">
+      Desde GPT-5 hasta Gemini Ultra 2, pasando por el boom de los agentes autónomos y la carrera por los chips de IA. Analizamos qué significan estos avances para Guatemala y la región centroamericana, cuáles son las oportunidades reales y qué empresas ya están adoptando estas herramientas.
+    </p>
+    <a href="#" class="btn-primary">Leer análisis completo</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div style="position: relative; z-index: 1; padding: 0 2rem; max-width: 1200px; margin: 0 auto;">
+  <div class="stats-bar">
+    <div>
+      <span class="stat-val">2.4K</span>
+      <span class="stat-label">Seguidores</span>
+    </div>
+    <div>
+      <span class="stat-val">150+</span>
+      <span class="stat-label">Artículos publicados</span>
+    </div>
+    <div>
+      <span class="stat-val">6</span>
+      <span class="stat-label">Categorías activas</span>
+    </div>
+    <div>
+      <span class="stat-val">GT</span>
+      <span class="stat-label">Hecho en Guatemala</span>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIAS -->
+<section id="categorias">
+  <p class="section-label">// Explora por tema</p>
+  <h2 class="section-title">Categorías</h2>
+  <p class="section-desc">Encuentra exactamente lo que buscas.</p>
+
+  <div class="cat-grid">
+    <a href="#" class="cat-item">
+      <div class="cat-icon">⚡</div>
+      <p class="cat-name">Flash Tech</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">🤖</div>
+      <p class="cat-name">IA</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">🎮</div>
+      <p class="cat-name">Gaming</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">💻</div>
+      <p class="cat-name">Hardware</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">📱</div>
+      <p class="cat-name">Software</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">🌐</div>
+      <p class="cat-name">Innovación</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">🔬</div>
+      <p class="cat-name">Análisis</p>
+    </a>
+    <a href="#" class="cat-item">
+      <div class="cat-icon">🏆</div>
+      <p class="cat-name">Reviews</p>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="Logo2.png" alt="Logo GT-BYTE footer" style="max-height:80px; max-width:140px; object-fit:contain; display:block; margin:0 auto 1rem;">
+  <div class="footer-logo">GT-BYTE</div>
+  <p class="footer-slogan">// Tecnología con alma chapina</p>
+  <ul class="footer-links">
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Flash Tech</a></li>
+    <li><a href="#">Análisis</a></li>
+    <li><a href="#">Reviews</a></li>
+    <li><a href="#">Innovación</a></li>
+    <li><a href="#">Comunidad</a></li>
+    <li><a href="#">Sobre nosotros</a></li>
+  </ul>
+  <div class="social-row">
+    <a href="https://instagram.com/gt_byte" class="social-chip" target="_blank">Instagram @gt_byte</a>
+    <a href="https://x.com/gt_byte" class="social-chip" target="_blank">X @gt_byte</a>
+    <a href="https://facebook.com/GT-Byte" class="social-chip" target="_blank">Facebook @GT-Byte</a>
+    <a href="https://threads.net/gt_byte" class="social-chip" target="_blank">Threads @gt_byte</a>
+  </div>
+  <p class="footer-copy">© 2026 GT-BYTE — Guatemala · Todos los derechos reservados</p>
+</footer>
+
+<script>
+function previewLogo(input, imgId, placeholderId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = document.getElementById(imgId);
+    const placeholder = document.getElementById(placeholderId);
+    img.src = e.target.result;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+</body>
+</html>
